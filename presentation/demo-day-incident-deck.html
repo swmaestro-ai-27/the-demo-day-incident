@@ -578,14 +578,17 @@
             <p class="eyebrow">Part 03</p>
             <h2>3. Agent Workflow 기획 및 구성</h2>
             <p class="lead" style="margin-top: 14px; font-size: 20px;">
-              에이전트 진척도에 맞춘 지식 제어와 스포일러 방지 (Spoiler Guard)
+              MCP 기반 Tool 호출과 실제 연동된 스포일러 가드
             </p>
-            <div style="margin-top: 24px; color: var(--muted); font-size: 17px; line-height: 1.6;">
+            <div style="margin-top: 24px; color: var(--muted); font-size: 16px; line-height: 1.55;">
               <p>
-                <strong>지식 필터링 (Knowledge Filtering)</strong>: 용의자 에이전트가 알고 있는 지식 중, 플레이어가 실제 인게임에서 해금한 단서(context_clues)만 LLM의 컨텍스트에 주입합니다.
+                <strong>MCP (Model Context Protocol) 기반 Tool 호출</strong>: AI 오케스트레이터 ARIA가 자율적으로 조명/출입 제어, 로그 조회 Tool을 직접 호출하여 시스템을 제어하도록 구현했습니다. 이 호출 흔적이 핵심 단서가 됩니다.
               </p>
-              <p style="margin-top: 14px;">
-                <strong>스포일러 가드 (Spoiler Guard)</strong>: 생성된 답변에서 미해금 단서(locked_clues) 언급을 자동 필터링하여, 우회형 진술로 안전하게 변경함으로써 사건 스포일러 누출을 차단합니다.
+              <p style="margin-top: 10px;">
+                <strong>지식 필터링 (Knowledge Filtering)</strong>: 용의자 에이전트 지식 중 플레이어가 게임 내에서 해금한 단서(context_clues)만 LLM 프롬프트에 동적으로 바인딩합니다.
+              </p>
+              <p style="margin-top: 10px;">
+                <strong>실제 구현된 스포일러 가드 (Spoiler Guard)</strong>: LLM 생성 답변에 아직 해금되지 않은 단서 키워드가 유출되면 즉시 우회 진술로 자동 대체하여 스포일러를 방지합니다. (`backend/agents/guard.py`)
               </p>
             </div>
           </div>
@@ -594,6 +597,8 @@
               <div class="node">사용자 입력 &amp; 캐릭터 ID 수신</div>
               <div class="arrow">↓</div>
               <div class="node">해금 정보 대조 및 지식 필터링</div>
+              <div class="arrow">↓</div>
+              <div class="node">페르소나 &amp; MCP 도구 데이터 연동</div>
               <div class="arrow">↓</div>
               <div class="node">페르소나 기반 LLM 답변 생성</div>
               <div class="arrow">↓</div>
