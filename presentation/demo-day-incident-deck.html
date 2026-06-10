@@ -646,12 +646,12 @@
 
       <!-- Slide 4: 3. Agent Workflow 기획 및 구성 -->
       <section class="slide">
-        <div class="content" style="grid-template-columns: minmax(0, 1fr) 520px; gap: 40px;">
+        <div class="content">
           <div>
             <p class="eyebrow">Part 03</p>
             <h2>3. Agent Workflow 기획 및 구성</h2>
             <p class="lead" style="margin-top: 14px; font-size: 20px;">
-              MCP 기반 Tool 호출과 실제 연동된 스포일러 가드
+              에이전트 진척도에 맞춘 지식 제어와 스포일러 방지
             </p>
             <div style="margin-top: 24px; color: var(--muted); font-size: 16px; line-height: 1.55;">
               <p>
@@ -666,41 +666,26 @@
             </div>
           </div>
           <div>
-            <div class="dual-workflow">
-              <div class="track">
-                <div class="track-title">용의자 대화 &amp; 지식 제어</div>
-                <div class="node">사용자 메시지 입력</div>
-                <div class="arrow">↓</div>
-                <div class="node">단서 대조 및 지식 필터링</div>
-                <div class="arrow">↓</div>
-                <div class="node">LLM 답변 생성</div>
-                <div class="arrow">↓</div>
-                <div class="node active-node">스포일러 가드 (Leak Check)</div>
-                <div class="branch-container">
-                  <div class="branch-path danger-path">
-                    <div class="arrow">↙ (유출 감지)</div>
-                    <div class="node small-node">우회형 안전 답변 대체</div>
-                  </div>
-                  <div class="branch-path safe-path">
-                    <div class="arrow">↘ (안전함)</div>
-                    <div class="node small-node">원문 진술 반환</div>
-                  </div>
+            <div class="workflow-diagram">
+              <div class="node">사용자 입력 &amp; 캐릭터 ID 수신</div>
+              <div class="arrow">↓</div>
+              <div class="node">해금 정보 대조 및 지식 필터링</div>
+              <div class="arrow">↓</div>
+              <div class="node">페르소나 기반 LLM 답변 생성</div>
+              <div class="arrow">↓</div>
+              <div class="node active-node">스포일러 가드 (Spoiler Guard) 검사</div>
+              <div class="branch-container">
+                <div class="branch-path danger-path">
+                  <div class="arrow">↙ (유출 감지)</div>
+                  <div class="node small-node">우회형 안전 답변 대체</div>
                 </div>
-                <div class="arrow" style="margin-top: 4px;">↓</div>
-                <div class="node">대화 내역 DB 저장 및 반환</div>
+                <div class="branch-path safe-path">
+                  <div class="arrow">↘ (안전함)</div>
+                  <div class="node small-node">원문 진술 반환</div>
+                </div>
               </div>
-              <div class="track">
-                <div class="track-title">오케스트레이터 자율 제어</div>
-                <div class="node">상위 목표 부여 (성공 극대화)</div>
-                <div class="arrow">↓</div>
-                <div class="node">시스템 환경 모니터링 (과열 감지)</div>
-                <div class="arrow">↓</div>
-                <div class="node">자율적 의사결정 (경고 억제)</div>
-                <div class="arrow">↓</div>
-                <div class="node tool-node">MCP Tool 호출 (조명/도어록 제어)</div>
-                <div class="arrow">↓</div>
-                <div class="node">물리 시스템 제어 및 로그 적재</div>
-              </div>
+              <div class="arrow" style="margin-top: 4px;">↓</div>
+              <div class="node">최종 응답 반환 및 대화 DB 저장</div>
             </div>
           </div>
         </div>
