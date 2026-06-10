@@ -124,6 +124,31 @@ def run():
         p.font.color.rgb = color
         p.font.name = "Malgun Gothic"
 
+    def add_browser_mockup(slide, left, top, width, image_path):
+        height = int(width / 1.6)
+        header_height = Inches(0.22)
+        
+        # 1. Outer Container Shape (rounded rectangle)
+        outer = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height + header_height)
+        outer.fill.solid()
+        outer.fill.fore_color.rgb = COLOR_CARD_BG
+        outer.line.color.rgb = COLOR_LINE
+        outer.line.width = Pt(1.0)
+        
+        # 2. Add the Image inside the container (below the header)
+        slide.shapes.add_picture(image_path, left + Inches(0.01), top + header_height, width - Inches(0.02), height - Inches(0.01))
+        
+        # 3. Add three dots for browser control (red, yellow, green)
+        dot_size = Inches(0.06)
+        dot_y = top + Inches(0.08)
+        dot_colors = [RGBColor(255, 95, 86), RGBColor(255, 189, 46), RGBColor(39, 201, 63)]
+        for idx, color in enumerate(dot_colors):
+            dot_x = left + Inches(0.12) + (idx * Inches(0.1))
+            dot = slide.shapes.add_shape(MSO_SHAPE.OVAL, dot_x, dot_y, dot_size, dot_size)
+            dot.fill.solid()
+            dot.fill.fore_color.rgb = color
+            dot.line.fill.background() # no border
+
     # ==========================================
     # Slide 1: Introduction
     # ==========================================
@@ -139,7 +164,7 @@ def run():
     
     # Home Screen Mockup
     if os.path.exists("presentation/assets/deck-home.png"):
-        slide1.shapes.add_picture("presentation/assets/deck-home.png", Inches(8.3), Inches(1.0), Inches(4.0), Inches(5.5))
+        add_browser_mockup(slide1, Inches(8.1), Inches(2.2), Inches(4.2), "presentation/assets/deck-home.png")
     
     add_text_box(slide1, Inches(1.0), Inches(6.8), Inches(11.33), Inches(0.4), "01 / 06", 10, bold=True, color=COLOR_DIM, align=PP_ALIGN.RIGHT)
 
@@ -184,7 +209,7 @@ def run():
         add_formatted_text(slide3, Inches(1.3), top_pos + Inches(0.2), Inches(5.9), Inches(0.8), f"{i+1}. {title}", desc, title_size=14, body_size=10.5)
 
     if os.path.exists("presentation/assets/deck-main.png"):
-        slide3.shapes.add_picture("presentation/assets/deck-main.png", Inches(8.3), Inches(1.6), Inches(4.0), Inches(5.0))
+        add_browser_mockup(slide3, Inches(8.1), Inches(2.2), Inches(4.2), "presentation/assets/deck-main.png")
 
     # ==========================================
     # Slide 4: 3. Agent Workflow 기획 및 구성
@@ -251,7 +276,7 @@ def run():
     )
 
     if os.path.exists("presentation/assets/deck-character-chat.png"):
-        slide5.shapes.add_picture("presentation/assets/deck-character-chat.png", Inches(8.2), Inches(1.6), Inches(4.1), Inches(5.0))
+        add_browser_mockup(slide5, Inches(8.1), Inches(2.2), Inches(4.2), "presentation/assets/deck-character-chat.png")
 
     # ==========================================
     # Slide 6: 5. Agent Workflow 시연

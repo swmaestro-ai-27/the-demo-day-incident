@@ -59,7 +59,7 @@
 
       .content {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 400px;
+        grid-template-columns: minmax(0, 1fr) 520px;
         gap: 56px;
         align-items: center;
         margin: 0 auto;
@@ -138,29 +138,44 @@
         font-weight: 900;
       }
 
-      .phone {
+      .browser {
         position: relative;
         overflow: hidden;
-        width: 400px;
-        height: 740px;
+        width: 520px;
+        height: 345px; /* 325px image + 20px header */
         border: 1px solid var(--line);
-        border-radius: 34px;
+        border-radius: 12px;
         background: #000;
         box-shadow:
-          0 24px 72px rgba(0, 0, 0, 0.62),
-          0 0 0 10px rgba(255, 255, 255, 0.02);
+          0 20px 48px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
       }
 
-      .phone img {
+      .browser-header {
+        height: 20px;
+        background: #111318;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        gap: 4px;
+      }
+
+      .browser-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      .browser-dot.red { background: #ff5f56; }
+      .browser-dot.yellow { background: #ffbd2e; }
+      .browser-dot.green { background: #27c93f; }
+
+      .browser img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
-
-      .phone.crop-main img,
-      .phone.crop-chat img {
-        object-fit: cover;
+        height: 325px;
+        display: block;
+        object-fit: fill;
       }
 
       .shots {
@@ -496,10 +511,13 @@
           font-size: 20px;
         }
 
-        .phone {
-          width: min(100%, 420px);
-          height: 680px;
+        .browser {
+          width: 100%;
+          height: auto;
           margin-top: 28px;
+        }
+        .browser img {
+          height: auto;
         }
 
         .cards,
@@ -574,7 +592,12 @@
               저희 발표를 시작하겠습니다.
             </div>
           </div>
-          <figure class="phone">
+          <figure class="browser">
+            <div class="browser-header">
+              <span class="browser-dot red"></span>
+              <span class="browser-dot yellow"></span>
+              <span class="browser-dot green"></span>
+            </div>
             <img src="assets/deck-home.png" alt="배포 앱 첫 화면" />
           </figure>
         </div>
@@ -605,7 +628,12 @@
               "AI가 범인을 맞히는 게임이 아니라, 플레이어가 AI의 추리를 의심하는 게임"
             </p>
           </div>
-          <figure class="phone">
+          <figure class="browser">
+            <div class="browser-header">
+              <span class="browser-dot red"></span>
+              <span class="browser-dot yellow"></span>
+              <span class="browser-dot green"></span>
+            </div>
             <img src="assets/deck-objective.png" alt="조사 목표 화면" />
           </figure>
         </div>
@@ -638,7 +666,12 @@
               * 백엔드, 프론트엔드, AI 담당자 에이전트는 서로의 직군 권한 범위 안에서만 사건을 해석합니다.
             </p>
           </div>
-          <figure class="phone crop-main">
+          <figure class="browser">
+            <div class="browser-header">
+              <span class="browser-dot red"></span>
+              <span class="browser-dot yellow"></span>
+              <span class="browser-dot green"></span>
+            </div>
             <img src="assets/deck-main.png" alt="조사 메인 화면" />
           </figure>
         </div>
@@ -713,7 +746,12 @@
               </div>
             </div>
           </div>
-          <figure class="phone crop-chat">
+          <figure class="browser">
+            <div class="browser-header">
+              <span class="browser-dot red"></span>
+              <span class="browser-dot yellow"></span>
+              <span class="browser-dot green"></span>
+            </div>
             <img src="assets/deck-character-chat.png" alt="민재 대화 화면" />
           </figure>
         </div>
