@@ -523,6 +523,10 @@
       }
 
       @media print {
+        @page {
+          size: landscape;
+          margin: 0;
+        }
         body {
           overflow: visible;
           -webkit-print-color-adjust: exact;
@@ -538,8 +542,11 @@
           display: grid !important;
           page-break-after: always;
           break-after: page;
-          height: 100dvh;
-          min-height: 100dvh;
+          height: 100vh !important;
+          min-height: 100vh !important;
+          max-height: 100vh !important;
+          box-sizing: border-box !important;
+          overflow: hidden !important;
           padding: 44px 56px 34px;
           background:
             radial-gradient(circle at 18% 12%, rgba(70, 77, 94, 0.24), transparent 32%),
