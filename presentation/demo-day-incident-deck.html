@@ -256,7 +256,7 @@
 
       .status-row {
         display: grid;
-        grid-template-columns: 150px 1fr;
+        grid-template-columns: 160px 1fr;
         gap: 18px;
         align-items: start;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -361,6 +361,41 @@
         font-weight: 850;
       }
 
+      /* Custom Workflow Diagram Styles */
+      .workflow-diagram {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 380px;
+      }
+
+      .node {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(8, 9, 11, 0.9);
+        padding: 12px 18px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .node.active-node {
+        border-color: var(--danger);
+        color: #ff8b98;
+        background: rgba(255, 51, 71, 0.06);
+      }
+
+      .arrow {
+        color: var(--dim);
+        font-size: 16px;
+        font-weight: 900;
+        margin: 2px 0;
+      }
+
       @media (max-width: 900px) {
         body {
           overflow: auto;
@@ -411,6 +446,10 @@
 
         .qr-panel img {
           margin: 0 auto;
+        }
+
+        .workflow-diagram {
+          margin-top: 28px;
         }
       }
 
@@ -464,30 +503,30 @@
           </figure>
         </div>
         <footer class="footer">
-          <span class="progress">01 / 06</span>
+          <span class="progress">01 / 05</span>
         </footer>
       </section>
 
-      <!-- Slide 2: 기존 게임의 아쉬움 -->
+      <!-- Slide 2: 1. 서비스 선정 배경 및 핵심 가치 -->
       <section class="slide">
         <div class="content">
           <div>
-            <p class="eyebrow">Limitations</p>
-            <h2>기존 게임의 아쉬움</h2>
+            <p class="eyebrow">Part 01</p>
+            <h2>1. 서비스 선정 배경 및 핵심 가치</h2>
             <div class="comparison">
               <div class="compare-box">
-                <span class="label">수동적인 스토리라인</span>
-                <h3>정해진 선택지의 한계</h3>
-                <p>플레이어가 스스로 고민하기보다 짜여진 스토리를 그저 수동적으로 따라가며 몰입감이 저해됩니다.</p>
+                <span class="label">기존 게임의 아쉬움</span>
+                <h3>수동성 및 AI 도구화</h3>
+                <p>짜여진 시나리오를 수동적으로 따라가는 구조, 그리고 단순히 단서만을 보관/전달하는 단순 정보 제공자형 기존 AI의 한계를 마주했습니다.</p>
               </div>
               <div class="compare-box">
-                <span class="label">단순 정보 전달자</span>
-                <h3>역할이 고정된 기존 AI</h3>
-                <p>최근 게임들의 AI 역시 단서를 단순히 보관하고 일방적으로 전달하는 단순 역할에 머무르고 있습니다.</p>
+                <span class="label">우리 서비스의 핵심 가치</span>
+                <h3>능동적인 불완전 추리자</h3>
+                <p>각 에이전트들이 고유의 시스템 권한과 페르소나를 가지고 스스로 의심하고 추리합니다. 플레이어는 이들의 주장에서 모순을 찾아 가려냅니다.</p>
               </div>
             </div>
             <p class="copy">
-              수동적인 플레이와 단순한 도구 형태의 AI는 몰입에 한계가 있습니다.
+              "AI가 범인을 맞히는 게임이 아니라, 플레이어가 AI의 추리를 의심하는 게임"
             </p>
           </div>
           <figure class="phone">
@@ -495,65 +534,32 @@
           </figure>
         </div>
         <footer class="footer">
-          <span class="progress">02 / 06</span>
+          <span class="progress">02 / 05</span>
         </footer>
       </section>
 
-      <!-- Slide 3: 우리 게임의 차별점 -->
-      <section class="slide">
-        <div class="content single">
-          <div>
-            <p class="eyebrow">Differentiator</p>
-            <h2>우리 게임의 차별점</h2>
-            <p class="lead">
-              AI가 범인을 맞히는 게임이 아니라, AI들의 추리를 의심하는 게임
-            </p>
-            <div class="cards">
-              <div class="card">
-                <strong>백엔드 담당자</strong>
-                <p>서버 로그와 권한 실행 흐름을 중심으로 사건을 의심합니다.</p>
-              </div>
-              <div class="card">
-                <strong>프론트엔드 담당자</strong>
-                <p>발표 자료 삭제 여부와 화면 흐름을 중심으로 의심합니다.</p>
-              </div>
-              <div class="card">
-                <strong>AI Agent 담당자</strong>
-                <p>에이전트 실행 기록과 툴(Tool) 호출 맥락을 분석해 범인을 추려냅니다.</p>
-              </div>
-            </div>
-            <p class="copy" style="margin-top: 24px; font-size: 19px; color: var(--muted);">
-              플레이어는 이들의 불완전한 주장과 객관적 단서를 비교하며 <strong>'진짜 근거'</strong>를 가려냅니다.
-            </p>
-          </div>
-        </div>
-        <footer class="footer">
-          <span class="progress">03 / 06</span>
-        </footer>
-      </section>
-
-      <!-- Slide 4: 플레이 루프와 구현 현황 -->
+      <!-- Slide 3: 2. 서비스 핵심 기능 -->
       <section class="slide">
         <div class="content">
           <div>
-            <p class="eyebrow">Play Loop & MVP</p>
-            <h2>플레이 루프와 구현 현황</h2>
-            <div class="status-list">
+            <p class="eyebrow">Part 02</p>
+            <h2>2. 서비스 핵심 기능</h2>
+            <div class="status-list" style="margin-top: 24px;">
               <div class="status-row">
-                <b>1. 사건 접속 & 현장 진입</b>
-                <span>데모데이 전날 연수생 의문사 오프닝 연출 및 사운드, 로그 등 단서 해금 기능 완료.</span>
+                <b>사건 접속 & 단서 확보</b>
+                <span>데모데이 전날 밤 연수생 의문사 현장 접속 및 서버 로그, 삭제 기록 등의 단서 잠금 해제</span>
               </div>
               <div class="status-row">
-                <b>2. 단서 기반 실시간 심문</b>
-                <span>획득한 단서를 바탕으로 용의자 에이전트들과 자유로운 채팅으로 실시간 진술 대화.</span>
+                <b>실시간 에이전트 심문</b>
+                <span>해금한 단서를 기반으로 용의자 에이전트들과 실시간 채팅 대화로 진술 및 모순 포착</span>
               </div>
               <div class="status-row">
-                <b>3. 추리 비교 및 최종 제출</b>
-                <span>인물들의 주장과 단서를 분석하고 모순을 찾아 범인, 동기, 증거를 최종 제출해 해결.</span>
+                <b>추리 제출 및 판정</b>
+                <span>단서와 주장을 비교해 범인(오케스트레이터 ARIA), 동기, 핵심 증거를 최종 제출하여 성공 판정 피드백 수신</span>
               </div>
             </div>
-            <p class="copy" style="margin-top: 18px; font-size: 16px; color: var(--dim);">
-              * 현재 세부 단서/인물 데이터 보강 및 추리 결과 성공·실패 화면 연출 고도화 진행 중.
+            <p class="copy" style="margin-top: 24px; font-size: 17px; color: var(--muted);">
+              * 백엔드, 프론트엔드, AI 담당자 에이전트는 서로의 직군 권한 범위 안에서만 사건을 해석합니다.
             </p>
           </div>
           <figure class="phone crop-main">
@@ -561,62 +567,83 @@
           </figure>
         </div>
         <footer class="footer">
-          <span class="progress">04 / 06</span>
+          <span class="progress">03 / 05</span>
         </footer>
       </section>
 
-      <!-- Slide 5: 향후 계획 -->
+      <!-- Slide 4: 3. Agent Workflow 기획 및 구성 -->
       <section class="slide">
         <div class="content">
           <div>
-            <p class="eyebrow">Future Plans</p>
-            <h2>향후 계획</h2>
-            <div class="comparison">
-              <div class="compare-box">
-                <span class="label">에이전트 간 소통</span>
-                <h3>자율적인 상호 소통 구조</h3>
-                <p>플레이어 개입 없이 에이전트 간 대화를 통해 상황과 추리가 실시간으로 역동적으로 변화하는 환경을 만듭니다.</p>
-              </div>
-              <div class="compare-box">
-                <span class="label">시나리오 자동화</span>
-                <h3>Agentic Workflow</h3>
-                <p>이번 프로젝트의 시나리오 제작 프로세스를 템플릿화하여, 시나리오를 완전 자동으로 생성하는 시스템을 구축합니다.</p>
-              </div>
+            <p class="eyebrow">Part 03</p>
+            <h2>3. Agent Workflow 기획 및 구성</h2>
+            <p class="lead" style="margin-top: 14px; font-size: 20px;">
+              에이전트 진척도에 맞춘 지식 제어와 스포일러 방지 (Spoiler Guard)
+            </p>
+            <div style="margin-top: 24px; color: var(--muted); font-size: 17px; line-height: 1.6;">
+              <p>
+                <strong>지식 필터링 (Knowledge Filtering)</strong>: 용의자 에이전트가 알고 있는 지식 중, 플레이어가 실제 인게임에서 해금한 단서(context_clues)만 LLM의 컨텍스트에 주입합니다.
+              </p>
+              <p style="margin-top: 14px;">
+                <strong>스포일러 가드 (Spoiler Guard)</strong>: 생성된 답변에서 미해금 단서(locked_clues) 언급을 자동 필터링하여, 우회형 진술로 안전하게 변경함으로써 사건 스포일러 누출을 차단합니다.
+              </p>
             </div>
           </div>
-          <figure class="phone crop-chat">
-            <img src="assets/deck-character-chat.png" alt="민재 대화 화면" />
-          </figure>
+          <div>
+            <div class="workflow-diagram">
+              <div class="node">사용자 입력 &amp; 캐릭터 ID 수신</div>
+              <div class="arrow">↓</div>
+              <div class="node">해금 정보 대조 및 지식 필터링</div>
+              <div class="arrow">↓</div>
+              <div class="node">페르소나 기반 LLM 답변 생성</div>
+              <div class="arrow">↓</div>
+              <div class="node active-node">스포일러 가드 (Spoiler Guard) 검사</div>
+              <div class="arrow">↓</div>
+              <div class="node">최종 응답 반환 및 대화 DB 저장</div>
+            </div>
+          </div>
         </div>
         <footer class="footer">
-          <span class="progress">05 / 06</span>
+          <span class="progress">04 / 05</span>
         </footer>
       </section>
 
-      <!-- Slide 6: 발표를 마치며 -->
+      <!-- Slide 5: 4. Agent Workflow 시연 -->
       <section class="slide">
-        <div class="content single">
+        <div class="content">
           <div>
-            <p class="eyebrow">Closing</p>
-            <h2>발표를 마치며</h2>
-            <p class="lead">
-              AI를 단순 가이드가 아닌, 스스로 생각하고 판단하는<br />
-              <strong>'불완전한 추리자'</strong>로 정의하여 새로운 추리의 재미를 제공합니다.
-            </p>
-            <div class="qr-panel">
+            <p class="eyebrow">Part 04</p>
+            <h2>4. Agent Workflow 시연</h2>
+            <div class="status-list" style="margin-top: 24px;">
+              <div class="status-row">
+                <b>현장 접속 및 조사</b>
+                <span>시스템 이상 개입 단서 확인 후, 용의자 에이전트 심문</span>
+              </div>
+              <div class="status-row">
+                <b>에이전트 모순 진술 확인</b>
+                <span>각각의 시스템 권한 범위에서 서로 다른 주장을 하는 모순 포착</span>
+              </div>
+              <div class="status-row">
+                <b>최종 범인 및 증거 제출</b>
+                <span>시스템 오케스트레이터 ARIA를 지목하고 성공 판정 피드백 확인</span>
+              </div>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <div class="qr-panel" style="margin: 0; width: 100%;">
               <img src="assets/play-qr.png" alt="플레이 URL QR 코드" />
               <div>
                 <strong>지금 바로 플레이</strong>
                 <span>frontend-plum-seven-77.vercel.app</span>
               </div>
             </div>
-            <p class="closing-line" style="font-size: 20px; color: var(--dim); margin-top: 24px;">
+            <p style="font-size: 16px; color: var(--dim); margin-top: 24px;">
               발표를 들어주셔서 감사합니다.
             </p>
           </div>
         </div>
         <footer class="footer">
-          <span class="progress">06 / 06</span>
+          <span class="progress">05 / 05</span>
         </footer>
       </section>
     </main>
