@@ -372,15 +372,45 @@
         max-width: 380px;
       }
 
+      .dual-workflow {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 520px;
+      }
+
+      .track {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .track-title {
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--dim);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 4px;
+        width: 100%;
+        text-align: center;
+      }
+
       .node {
         width: 100%;
         border: 1px solid var(--line);
-        border-radius: 12px;
+        border-radius: 10px;
         background: rgba(8, 9, 11, 0.9);
-        padding: 12px 18px;
+        padding: 10px 12px;
         text-align: center;
-        font-size: 15px;
+        font-size: 13px;
         font-weight: 700;
+        line-height: 1.4;
       }
 
       .node.active-node {
@@ -389,11 +419,54 @@
         background: rgba(255, 51, 71, 0.06);
       }
 
+      .node.tool-node {
+        border-color: var(--amber);
+        color: #f6c15b;
+        background: rgba(246, 193, 91, 0.06);
+      }
+
       .arrow {
         color: var(--dim);
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 900;
-        margin: 2px 0;
+        margin: 1px 0;
+      }
+
+      .branch-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .branch-path {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .small-node {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(8, 9, 11, 0.95);
+        padding: 8px 10px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+
+      .danger-path .small-node {
+        border-color: rgba(255, 51, 71, 0.3);
+        color: #ff8b98;
+        background: rgba(255, 51, 71, 0.02);
+      }
+
+      .safe-path .small-node {
+        border-color: rgba(70, 77, 94, 0.4);
+        color: var(--muted);
       }
 
       @media (max-width: 900px) {
@@ -573,7 +646,7 @@
 
       <!-- Slide 4: 3. Agent Workflow 기획 및 구성 -->
       <section class="slide">
-        <div class="content">
+        <div class="content" style="grid-template-columns: minmax(0, 1fr) 520px; gap: 40px;">
           <div>
             <p class="eyebrow">Part 03</p>
             <h2>3. Agent Workflow 기획 및 구성</h2>
@@ -593,18 +666,41 @@
             </div>
           </div>
           <div>
-            <div class="workflow-diagram">
-              <div class="node">사용자 입력 &amp; 캐릭터 ID 수신</div>
-              <div class="arrow">↓</div>
-              <div class="node">해금 정보 대조 및 지식 필터링</div>
-              <div class="arrow">↓</div>
-              <div class="node">페르소나 &amp; MCP 도구 데이터 연동</div>
-              <div class="arrow">↓</div>
-              <div class="node">페르소나 기반 LLM 답변 생성</div>
-              <div class="arrow">↓</div>
-              <div class="node active-node">스포일러 가드 (Spoiler Guard) 검사</div>
-              <div class="arrow">↓</div>
-              <div class="node">최종 응답 반환 및 대화 DB 저장</div>
+            <div class="dual-workflow">
+              <div class="track">
+                <div class="track-title">용의자 대화 &amp; 지식 제어</div>
+                <div class="node">사용자 메시지 입력</div>
+                <div class="arrow">↓</div>
+                <div class="node">단서 대조 및 지식 필터링</div>
+                <div class="arrow">↓</div>
+                <div class="node">LLM 답변 생성</div>
+                <div class="arrow">↓</div>
+                <div class="node active-node">스포일러 가드 (Leak Check)</div>
+                <div class="branch-container">
+                  <div class="branch-path danger-path">
+                    <div class="arrow">↙ (유출 감지)</div>
+                    <div class="node small-node">우회형 안전 답변 대체</div>
+                  </div>
+                  <div class="branch-path safe-path">
+                    <div class="arrow">↘ (안전함)</div>
+                    <div class="node small-node">원문 진술 반환</div>
+                  </div>
+                </div>
+                <div class="arrow" style="margin-top: 4px;">↓</div>
+                <div class="node">대화 내역 DB 저장 및 반환</div>
+              </div>
+              <div class="track">
+                <div class="track-title">오케스트레이터 자율 제어</div>
+                <div class="node">상위 목표 부여 (성공 극대화)</div>
+                <div class="arrow">↓</div>
+                <div class="node">시스템 환경 모니터링 (과열 감지)</div>
+                <div class="arrow">↓</div>
+                <div class="node">자율적 의사결정 (경고 억제)</div>
+                <div class="arrow">↓</div>
+                <div class="node tool-node">MCP Tool 호출 (조명/도어록 제어)</div>
+                <div class="arrow">↓</div>
+                <div class="node">물리 시스템 제어 및 로그 적재</div>
+              </div>
             </div>
           </div>
         </div>
