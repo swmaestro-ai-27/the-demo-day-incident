@@ -59,7 +59,7 @@
 
       .content {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 400px;
+        grid-template-columns: minmax(0, 1fr) 520px;
         gap: 56px;
         align-items: center;
         margin: 0 auto;
@@ -138,29 +138,44 @@
         font-weight: 900;
       }
 
-      .phone {
+      .browser {
         position: relative;
         overflow: hidden;
-        width: 400px;
-        height: 740px;
+        width: 520px;
+        height: 345px; /* 325px image + 20px header */
         border: 1px solid var(--line);
-        border-radius: 34px;
+        border-radius: 12px;
         background: #000;
         box-shadow:
-          0 24px 72px rgba(0, 0, 0, 0.62),
-          0 0 0 10px rgba(255, 255, 255, 0.02);
+          0 20px 48px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
       }
 
-      .phone img {
+      .browser-header {
+        height: 20px;
+        background: #111318;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        gap: 4px;
+      }
+
+      .browser-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+      }
+
+      .browser-dot.red { background: #ff5f56; }
+      .browser-dot.yellow { background: #ffbd2e; }
+      .browser-dot.green { background: #27c93f; }
+
+      .browser img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
-
-      .phone.crop-main img,
-      .phone.crop-chat img {
-        object-fit: cover;
+        height: 325px;
+        display: block;
+        object-fit: fill;
       }
 
       .shots {
@@ -256,7 +271,7 @@
 
       .status-row {
         display: grid;
-        grid-template-columns: 120px 1fr;
+        grid-template-columns: 160px 1fr;
         gap: 18px;
         align-items: start;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -361,6 +376,114 @@
         font-weight: 850;
       }
 
+      /* Custom Workflow Diagram Styles */
+      .workflow-diagram {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 380px;
+      }
+
+      .dual-workflow {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 520px;
+      }
+
+      .track {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .track-title {
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--dim);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 4px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .node {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(8, 9, 11, 0.9);
+        padding: 10px 12px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      .node.active-node {
+        border-color: var(--danger);
+        color: #ff8b98;
+        background: rgba(255, 51, 71, 0.06);
+      }
+
+      .node.tool-node {
+        border-color: var(--amber);
+        color: #f6c15b;
+        background: rgba(246, 193, 91, 0.06);
+      }
+
+      .arrow {
+        color: var(--dim);
+        font-size: 14px;
+        font-weight: 900;
+        margin: 1px 0;
+      }
+
+      .branch-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .branch-path {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .small-node {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(8, 9, 11, 0.95);
+        padding: 8px 10px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+
+      .danger-path .small-node {
+        border-color: rgba(255, 51, 71, 0.3);
+        color: #ff8b98;
+        background: rgba(255, 51, 71, 0.02);
+      }
+
+      .safe-path .small-node {
+        border-color: rgba(70, 77, 94, 0.4);
+        color: var(--muted);
+      }
+
       @media (max-width: 900px) {
         body {
           overflow: auto;
@@ -388,10 +511,13 @@
           font-size: 20px;
         }
 
-        .phone {
-          width: min(100%, 420px);
-          height: 680px;
+        .browser {
+          width: 100%;
+          height: auto;
           margin-top: 28px;
+        }
+        .browser img {
+          height: auto;
         }
 
         .cards,
@@ -413,189 +539,248 @@
           margin: 0 auto;
         }
       }
+
+      @media print {
+        @page {
+          size: landscape;
+          margin: 0;
+        }
+        body {
+          overflow: visible;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          background: #020305;
+        }
+        .deck {
+          height: auto;
+          width: auto;
+          background: none;
+        }
+        .slide {
+          display: grid !important;
+          page-break-after: always;
+          break-after: page;
+          height: 100vh !important;
+          min-height: 100vh !important;
+          max-height: 100vh !important;
+          box-sizing: border-box !important;
+          overflow: hidden !important;
+          padding: 44px 56px 34px;
+          background:
+            radial-gradient(circle at 18% 12%, rgba(70, 77, 94, 0.24), transparent 32%),
+            linear-gradient(180deg, #050608 0%, #020305 100%) !important;
+        }
+        .controls {
+          display: none !important;
+        }
+      }
     </style>
   </head>
   <body>
     <main class="deck">
+      <!-- Slide 1: Introduction -->
       <section class="slide active">
         <div class="content">
           <div>
             <p class="eyebrow">CASE 01</p>
             <h1>The Demo Day Incident</h1>
             <p class="lead">
-              AI가 범인을 맞히는 게임이 아니라, AI들의 추리를 의심하는 게임.
+              서로 다른 권한과 페르소나를 가진 에이전트들과 상호작용하며 사건을 해결하는 추리 게임
             </p>
             <div class="quote">
-              NPC가 단서를 주는 사람이 아니라,<br />
-              자기 나름대로 범인을 찍는 사람이라면?
+              안녕하십니까?<br />
+              저희 발표를 시작하겠습니다.
             </div>
           </div>
-          <figure class="phone">
+          <figure class="browser">
+            <div class="browser-header">
+              <span class="browser-dot red"></span>
+              <span class="browser-dot yellow"></span>
+              <span class="browser-dot green"></span>
+            </div>
             <img src="assets/deck-home.png" alt="배포 앱 첫 화면" />
           </figure>
         </div>
         <footer class="footer">
-          <span class="progress">01 / 07</span>
+          <span class="progress">01 / 06</span>
         </footer>
       </section>
 
-      <section class="slide">
-        <div class="content single">
-          <div>
-            <p class="eyebrow">Core Idea</p>
-            <h2>그럴듯하게 말하지만, 전부 믿을 수는 없습니다</h2>
-            <p class="lead">
-              같은 사건을 보고도 백엔드, 프론트엔드, AI Agent 담당자는 서로 다른 근거로 다른 사람을 의심합니다.
-            </p>
-            <div class="cards">
-              <div class="card">
-                <strong>백엔드 담당자</strong>
-                <p>서버 기록과 권한 실행 흐름을 중심으로 사건을 봅니다.</p>
-              </div>
-              <div class="card">
-                <strong>프론트엔드 담당자</strong>
-                <p>발표 자료 삭제와 화면 흐름을 중심으로 의심합니다.</p>
-              </div>
-              <div class="card">
-                <strong>AI Agent 담당자</strong>
-                <p>Agent 실행 기록과 Tool 호출 맥락을 중심으로 판단합니다.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <footer class="footer">
-          <span class="progress">02 / 07</span>
-        </footer>
-      </section>
-
+      <!-- Slide 2: 1. 서비스 선정 배경 및 핵심 가치 -->
       <section class="slide">
         <div class="content">
           <div>
-            <p class="eyebrow">Difference</p>
-            <h2>기존 추리 게임과 다른 지점</h2>
+            <p class="eyebrow">Part 01</p>
+            <h2>1. 서비스 선정 배경 및 핵심 가치</h2>
             <div class="comparison">
               <div class="compare-box">
-                <span class="label">기존 NPC</span>
-                <h3>단서 전달자</h3>
-                <p>정해진 대사를 말하고, 플레이어는 그 정보를 수집합니다.</p>
+                <span class="label">기존 게임의 아쉬움</span>
+                <h3>수동성 및 AI 도구화</h3>
+                <p>짜여진 시나리오를 수동적으로 따라가는 구조, 그리고 단순히 단서만을 보관/전달하는 단순 정보 제공자형 기존 AI의 한계를 마주했습니다.</p>
               </div>
               <div class="compare-box">
-                <span class="label">우리 NPC</span>
-                <h3>불완전한 추리자</h3>
-                <p>자기 정보와 관점 안에서 추리합니다. 그래서 맞을 수도, 틀릴 수도 있습니다.</p>
+                <span class="label">우리 서비스의 핵심 가치</span>
+                <h3>능동적인 불완전 추리자</h3>
+                <p>각 에이전트들이 고유의 시스템 권한과 페르소나를 가지고 스스로 의심하고 추리합니다. 플레이어는 이들의 주장에서 모순을 찾아 가려냅니다.</p>
               </div>
             </div>
             <p class="copy">
-              재미는 “정답 묻기”가 아니라 “진짜 근거 고르기”입니다.
+              "AI가 범인을 맞히는 게임이 아니라, 플레이어가 AI의 추리를 의심하는 게임"
             </p>
           </div>
-          <figure class="phone">
+          <figure class="browser">
+            <div class="browser-header">
+              <span class="browser-dot red"></span>
+              <span class="browser-dot yellow"></span>
+              <span class="browser-dot green"></span>
+            </div>
             <img src="assets/deck-objective.png" alt="조사 목표 화면" />
           </figure>
         </div>
         <footer class="footer">
-          <span class="progress">03 / 07</span>
+          <span class="progress">02 / 06</span>
         </footer>
       </section>
 
+      <!-- Slide 3: 2. 서비스 핵심 기능 -->
       <section class="slide">
         <div class="content">
           <div>
-            <p class="eyebrow">Play Loop</p>
-            <h2>플레이어는 AI를 의심합니다</h2>
-            <div class="status-list">
+            <p class="eyebrow">Part 02</p>
+            <h2>2. 서비스 핵심 기능</h2>
+            <div class="status-list" style="margin-top: 24px;">
               <div class="status-row">
-                <b>1. 단서 확인</b>
-                <span>잠금 기록, 삭제 기록, 실행 기록처럼 사건의 조각을 엽니다.</span>
+                <b>사건 접속 & 단서 확보</b>
+                <span>데모데이 전날 밤 연수생 의문사 현장 접속 및 서버 로그, 삭제 기록 등의 단서 잠금 해제</span>
               </div>
               <div class="status-row">
-                <b>2. 인물 대화</b>
-                <span>열린 단서를 바탕으로 관련 인물 Agent에게 질문합니다.</span>
+                <b>실시간 에이전트 심문</b>
+                <span>해금한 단서를 기반으로 용의자 에이전트들과 실시간 채팅 대화로 진술 및 모순 포착</span>
               </div>
               <div class="status-row">
-                <b>3. 추리 비교</b>
-                <span>누가 무엇을 알고, 무엇을 모르는지 비교합니다.</span>
-              </div>
-              <div class="status-row">
-                <b>4. 최종 제출</b>
-                <span>범인, 동기, 결정적 증거를 직접 선택합니다.</span>
+                <b>추리 제출 및 판정</b>
+                <span>단서와 주장을 비교해 범인(오케스트레이터 ARIA), 동기, 핵심 증거를 최종 제출하여 성공 판정 피드백 수신</span>
               </div>
             </div>
+            <p class="copy" style="margin-top: 24px; font-size: 17px; color: var(--muted);">
+              * 백엔드, 프론트엔드, AI 담당자 에이전트는 서로의 직군 권한 범위 안에서만 사건을 해석합니다.
+            </p>
           </div>
-          <figure class="phone crop-main">
+          <figure class="browser">
+            <div class="browser-header">
+              <span class="browser-dot red"></span>
+              <span class="browser-dot yellow"></span>
+              <span class="browser-dot green"></span>
+            </div>
             <img src="assets/deck-main.png" alt="조사 메인 화면" />
           </figure>
         </div>
         <footer class="footer">
-          <span class="progress">04 / 07</span>
+          <span class="progress">03 / 06</span>
         </footer>
       </section>
 
+      <!-- Slide 4: 3. Agent Workflow 기획 및 구성 -->
       <section class="slide">
-        <div class="content single">
+        <div class="content">
           <div>
-            <p class="eyebrow">Actual Screens</p>
-            <h2>실제 플레이는 이렇게 보입니다</h2>
-            <p class="lead">사건 접속 → 단서 확인 → 인물 질문으로 이어지는 짧은 조사 흐름.</p>
-            <div class="shots">
-              <figure class="shot">
-                <img src="assets/deck-opening-system.png" alt="시스템 오프닝" />
-              </figure>
-              <figure class="shot">
-                <img src="assets/deck-clue-detail.png" alt="단서 상세" />
-              </figure>
-              <figure class="shot">
-                <img src="assets/deck-chat-answer.png" alt="인물 대화 답변" />
-              </figure>
+            <p class="eyebrow">Part 03</p>
+            <h2>3. Agent Workflow 기획 및 구성</h2>
+            <p class="lead" style="margin-top: 14px; font-size: 20px;">
+              에이전트 진척도에 맞춘 지식 제어와 스포일러 방지
+            </p>
+            <div style="margin-top: 24px; color: var(--muted); font-size: 16px; line-height: 1.55;">
+              <p>
+                <strong>지식 필터링 (Knowledge Filtering)</strong>: 용의자 에이전트 지식 중 플레이어가 게임 내에서 해금한 단서(context_clues)만 LLM 프롬프트에 동적으로 바인딩합니다.
+              </p>
+              <p style="margin-top: 14px;">
+                <strong>실제 구현된 스포일러 가드 (Spoiler Guard)</strong>: LLM 생성 답변에 아직 해금되지 않은 단서 키워드가 유출되면 즉시 우회 진술로 자동 대체하여 스포일러를 방지합니다. (`backend/agents/guard.py`)
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="workflow-diagram">
+              <div class="node">사용자 입력 &amp; 캐릭터 ID 수신</div>
+              <div class="arrow">↓</div>
+              <div class="node">해금 정보 대조 및 지식 필터링</div>
+              <div class="arrow">↓</div>
+              <div class="node">페르소나 기반 LLM 답변 생성</div>
+              <div class="arrow">↓</div>
+              <div class="node active-node">스포일러 가드 (Spoiler Guard) 검사</div>
+              <div class="branch-container">
+                <div class="branch-path danger-path">
+                  <div class="arrow">↙ (유출 감지)</div>
+                  <div class="node small-node">우회형 안전 답변 대체</div>
+                </div>
+                <div class="branch-path safe-path">
+                  <div class="arrow">↘ (안전함)</div>
+                  <div class="node small-node">원문 진술 반환</div>
+                </div>
+              </div>
+              <div class="arrow" style="margin-top: 4px;">↓</div>
+              <div class="node">최종 응답 반환 및 대화 DB 저장</div>
             </div>
           </div>
         </div>
         <footer class="footer">
-          <span class="progress">05 / 07</span>
+          <span class="progress">04 / 06</span>
         </footer>
       </section>
 
+      <!-- Slide 5: 4. 발전 계획 -->
       <section class="slide">
         <div class="content">
           <div>
-            <p class="eyebrow">Current State</p>
-            <h2>핵심 경험을 검증하는 MVP입니다</h2>
-            <div class="status-list">
-              <div class="status-row">
-                <b>구현됨</b>
-                <span>사건 진입, 단서 잠금 해제, 인물 대화, 추리 제출 흐름, ARIA 연출, 사운드.</span>
+            <p class="eyebrow">Part 04</p>
+            <h2>4. 발전 계획</h2>
+            <div class="comparison" style="margin-top: 34px;">
+              <div class="compare-box">
+                <span class="label">에이전트 간 소통</span>
+                <h3>자율적인 상호 소통 구조</h3>
+                <p>플레이어 개입 없이 에이전트 간 대화를 통해 상황과 추리가 실시간으로 역동적으로 변화하는 한층 더 복잡한 게임 환경을 구축합니다.</p>
               </div>
-              <div class="status-row">
-                <b>다듬는 중</b>
-                <span>단서/인물 데이터, 사건 설명 이벤트, 추리 성공/실패 이벤트.</span>
+              <div class="compare-box">
+                <span class="label">시나리오 자동화</span>
+                <h3>Agentic Workflow</h3>
+                <p>이번 프로젝트의 시나리오 제작 프로세스를 템플릿화하여, 시나리오를 완전 자동으로 생성하는 시스템을 기획 및 설계합니다.</p>
               </div>
             </div>
-            <p class="copy">
-              <span class="tag">MVP</span>
-              <span class="tag">Persona Agent</span>
-              <span class="tag danger">No Spoiler</span>
-            </p>
           </div>
-          <figure class="phone crop-chat">
+          <figure class="browser">
+            <div class="browser-header">
+              <span class="browser-dot red"></span>
+              <span class="browser-dot yellow"></span>
+              <span class="browser-dot green"></span>
+            </div>
             <img src="assets/deck-character-chat.png" alt="민재 대화 화면" />
           </figure>
         </div>
         <footer class="footer">
-          <span class="progress">06 / 07</span>
+          <span class="progress">05 / 06</span>
         </footer>
       </section>
 
+      <!-- Slide 6: 5. Agent Workflow 시연 -->
       <section class="slide">
-        <div class="content single">
+        <div class="content" style="grid-template-columns: minmax(0, 1fr) 480px; gap: 40px;">
           <div>
-            <p class="eyebrow">Closing</p>
-            <h2>AI가 범인을 맞히는 게임이 아닙니다</h2>
-            <p class="lead">
-              AI들이 각자 범인을 의심하고,<br />
-              플레이어가 그 추리들을 의심하는 게임입니다.
-            </p>
-            <div class="closing-line">최종 진실은 직접 플레이하면서 확인해 주세요.</div>
-            <div class="qr-panel">
+            <p class="eyebrow">Part 05</p>
+            <h2>5. Agent Workflow 시연</h2>
+            <div class="status-list" style="margin-top: 24px;">
+              <div class="status-row" style="grid-template-columns: 120px 1fr;">
+                <b>현장 접속 및 조사</b>
+                <span>시스템 이상 개입 단서 확인 후, 용의자 에이전트 심문</span>
+              </div>
+              <div class="status-row" style="grid-template-columns: 120px 1fr;">
+                <b>에이전트 모순 진술</b>
+                <span>각자의 시스템 권한 범위에서 서로 다른 주장을 하는 모순 포착</span>
+              </div>
+              <div class="status-row" style="grid-template-columns: 120px 1fr;">
+                <b>최종 범인 제출</b>
+                <span>시스템 오케스트레이터 ARIA를 지목하고 성공 판정 피드백 확인</span>
+              </div>
+            </div>
+            <div class="qr-panel" style="margin-top: 28px; width: 100%;">
               <img src="assets/play-qr.png" alt="플레이 URL QR 코드" />
               <div>
                 <strong>지금 바로 플레이</strong>
@@ -603,9 +788,17 @@
               </div>
             </div>
           </div>
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <div style="width: 100%; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #000; box-shadow: 0 12px 36px rgba(0,0,0,0.5);">
+              <video src="agent-workflow-demo.mp4" controls autoplay loop muted style="width: 100%; display: block;"></video>
+            </div>
+            <p style="font-size: 14px; color: var(--dim); margin-top: 14px; text-align: center;">
+              * 데모 시연 영상 (agent-workflow-demo.mp4)
+            </p>
+          </div>
         </div>
         <footer class="footer">
-          <span class="progress">07 / 07</span>
+          <span class="progress">06 / 06</span>
         </footer>
       </section>
     </main>
